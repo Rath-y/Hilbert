@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     private final static int MAX_ORDER = 9;
     private int order = 1;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
                 display();
             }
         });
+
+        if (savedInstanceState!=null){
+            int tapOrder = savedInstanceState.getInt("tap_order");
+            order = tapOrder;
+        }
     }
+
 
     @Override
     protected void onResume() {
@@ -54,5 +62,11 @@ public class MainActivity extends AppCompatActivity {
         hilbertView.setOrder(order);
         decButton.setEnabled(order > 1);
         incButton.setEnabled(order < MAX_ORDER);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putInt("tap_order", order);
     }
 }
